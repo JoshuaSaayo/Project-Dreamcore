@@ -1,11 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1756815751
+::res://::1756821595
 icon.svg::CompressedTexture2D/CompressedTexture2D::1755060017120439329::1756644808::1756644886::1::::<><><>0<>0<>80161fb16726c637872fcc307acd11ff<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://Assets/::1756734768
-::res://Map/::1756818863
-map.tscn::PackedScene::7151027200555655362::1756817866::0::1::::<><><>0<>0<><>::uid://k8xia56lh4hk::::res://Map/pool_map.glb
-pool_map.glb::PackedScene::5710591160082334303::1756818863::1756818866::1::::<><><>0<>0<>76a6ffb92a389e9644481f1716c66802<>res://.godot/imported/pool_map.glb-5c36df81206592e15dd8554169e8fbf7.scn::uid://cvhy35poey5ni::::res://Map/pool_map_Color.png<>uid://cel2uxg0myioe::::res://Map/pool_map_Rougness.png
-pool_map_Color.png::CompressedTexture2D::6262766537634023098::1756818863::1756818866::1::::<><><>0<>0<>35756d1d2dd0553f87adf11e3bea8b54<>res://.godot/imported/pool_map_Color.png-2a87fe17e1505b9af7075158d060a56a.s3tc.ctex::
-pool_map_Rougness.png::CompressedTexture2D::5077981190374536096::1756818865::1756818866::1::::<><><>0<>0<>4531e958924000110a5a6786d6c42ba7<>res://.godot/imported/pool_map_Rougness.png-34ff220ec1b83841acab0ec126af69c4.s3tc.ctex::
-::res://Scenes/::1756736353
-intro.tscn::PackedScene::7787889037948531368::1756736353::0::1::::<><><>0<>0<><>::
+::res://Map/::1756821475
+map.tscn::PackedScene/PackedScene::7151027200555655362::1756817866::0::1::::<><><>0<>0<><>::uid://k8xia56lh4hk::::res://Map/pool_map.glb
+::res://Scenes/::1756821589
+intro.tscn::PackedScene::7787889037948531368::1756821589::0::1::::<><><>0<>0<><>::
