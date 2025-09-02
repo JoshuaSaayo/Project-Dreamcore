@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkmofadrv7y52"]
-
-[ext_resource type="PackedScene" uid="uid://d47142jnqia8" path="res://Map/dream_pool.glb" id="1_la0kt"]
-
-[node name="dream_pool" type="Node3D"]
-
-[node name="dream_pool" parent="." instance=ExtResource("1_la0kt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.119437, 1.19209e-07, -0.30606)
