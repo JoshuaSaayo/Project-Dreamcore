@@ -1,10 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://c85amxo3v4tuw"]
 
-[ext_resource type="PackedScene" uid="uid://k8xia56lh4hk" path="res://Map/pool_map.glb" id="1_ro55w"]
+[ext_resource type="PackedScene" uid="uid://cwj5yk7xs2dfd" path="res://Map/pool_map.glb" id="1_ro55w"]
 
 [node name="Map" type="Node3D"]
 
-[node name="PoolMap" type="Node3D" parent="."]
-
 [node name="pool_map" parent="." instance=ExtResource("1_ro55w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.171578, 0, 1.26122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.8115, 0.165726, -3.90569)
