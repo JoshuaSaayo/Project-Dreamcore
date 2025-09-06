@@ -1,10 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=18 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
+[ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
 [ext_resource type="PackedScene" uid="uid://clping7g0xs1h" path="res://assets/smiley/Smiley.glb" id="2_njngi"]
 [ext_resource type="PackedScene" uid="uid://cy1sd2t1xwfry" path="res://assets/duck_buoy/DuckBuoy.glb" id="3_6yc6o"]
+[ext_resource type="PackedScene" uid="uid://hop4wc0ql5av" path="res://Map/Doors.glb" id="3_d1580"]
 [ext_resource type="Script" uid="uid://2oj1x12f0bau" path="res://Map/smiley.gd" id="4_86j4t"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="5_8svjd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3g1qk"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_d1580"]
 
 [sub_resource type="Shader" id="Shader_6yc6o"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
@@ -164,6 +170,14 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166332, 1.89322, 0.8774)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/DreamPool"]
+material_override = SubResource("StandardMaterial3D_3g1qk")
+mesh = SubResource("ArrayMesh_d1580")
+
+[node name="DreamPoolFloor" parent="Terrain" instance=ExtResource("2_3g1qk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194958, 3.96144, 0.78249)
+
+[node name="Doors" parent="Terrain" instance=ExtResource("3_d1580")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180382, 1.88174, 0.854114)
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -174,7 +188,7 @@ transform = Transform3D(0.811858, 0, 0, 0, 0.811858, 0, 0, 0, 0.811858, -7.96379
 transform = Transform3D(1.25503, 0, 1.42265, 0, 1.89711, 0, -1.42265, 0, 1.25503, -19.8151, 3.74752, 3.91033)
 
 [node name="water" type="MeshInstance3D" parent="."]
-transform = Transform3D(132.715, 0, 0, 0, 3.00433, 0, 0, 0, 16.9876, 0.751309, 1.81636, 0.657615)
+transform = Transform3D(132.715, 0, 0, 0, 13.8818, 0, 0, 0, 16.9876, 0.751309, -3.53603, 0.657615)
 mesh = SubResource("BoxMesh_6yc6o")
 
 [node name="Smiley" type="RigidBody3D" parent="."]
