@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=20 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
@@ -8,9 +8,21 @@
 [ext_resource type="Script" uid="uid://2oj1x12f0bau" path="res://Map/smiley.gd" id="4_86j4t"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="5_8svjd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3g1qk"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d1580"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_d1580"]
+[sub_resource type="Sky" id="Sky_5ej7w"]
+sky_material = SubResource("ProceduralSkyMaterial_d1580")
+
+[sub_resource type="Environment" id="Environment_lymsy"]
+background_mode = 2
+background_color = Color(0.139997, 0.195845, 0.260278, 1)
+sky = SubResource("Sky_5ej7w")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.0223201, 0.0660172, 0.0628479, 1)
 
 [sub_resource type="Shader" id="Shader_6yc6o"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
@@ -158,26 +170,29 @@ material = SubResource("ShaderMaterial_d1580")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3g1qk"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_d1580"]
+size = Vector3(134.003, 3.97681, 16.2129)
+
 [node name="Map" type="Node3D"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.907848, 0.267194, -0.323141, -0.309994, 0.091236, 0.946351, 0.282341, 0.959314, 6.67183e-08, -44.6089, 48.6271, 0)
-shadow_enabled = true
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lymsy")
 
 [node name="Terrain" type="Node3D" parent="."]
 
 [node name="DreamPool" parent="Terrain" instance=ExtResource("1_ro55w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166332, 1.89322, 0.8774)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/DreamPool"]
-material_override = SubResource("StandardMaterial3D_3g1qk")
-mesh = SubResource("ArrayMesh_d1580")
-
 [node name="DreamPoolFloor" parent="Terrain" instance=ExtResource("2_3g1qk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.194958, 3.96144, 0.78249)
 
 [node name="Doors" parent="Terrain" instance=ExtResource("3_d1580")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180382, 1.88174, 0.854114)
+
+[node name="water" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(132.715, 0, 0, 0, 13.8818, 0, 0, 0, 16.9876, 0.751309, -3.53603, 0.657615)
+mesh = SubResource("BoxMesh_6yc6o")
+skeleton = NodePath("../..")
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -186,10 +201,6 @@ transform = Transform3D(0.811858, 0, 0, 0, 0.811858, 0, 0, 0, 0.811858, -7.96379
 
 [node name="DuckBuoy" parent="Props" instance=ExtResource("3_6yc6o")]
 transform = Transform3D(1.25503, 0, 1.42265, 0, 1.89711, 0, -1.42265, 0, 1.25503, -19.8151, 3.74752, 3.91033)
-
-[node name="water" type="MeshInstance3D" parent="."]
-transform = Transform3D(132.715, 0, 0, 0, 13.8818, 0, 0, 0, 16.9876, 0.751309, -3.53603, 0.657615)
-mesh = SubResource("BoxMesh_6yc6o")
 
 [node name="Smiley" type="RigidBody3D" parent="."]
 script = ExtResource("4_86j4t")
@@ -203,4 +214,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5275, 0)
 shape = SubResource("BoxShape3D_3g1qk")
 
 [node name="ProtoController" parent="." instance=ExtResource("5_8svjd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.1592, 2.33185, 1.14739)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.1592, 2.72121, 1.14739)
+
+[node name="Collision" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Collision"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67281, 1.63503, 0.916475)
+shape = SubResource("BoxShape3D_d1580")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.82884, 7.1737, 10.7648)
+shape = SubResource("BoxShape3D_d1580")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.82884, 7.1737, -8.76804)
+shape = SubResource("BoxShape3D_d1580")
+
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Lights"]
+transform = Transform3D(-0.998342, -0.057564, -2.5162e-09, 0, -4.37114e-08, 1, -0.057564, 0.998342, 4.36389e-08, -40.4253, 48.4597, 0)
+shadow_enabled = true
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 37.2313, 33.5752, 0)
+light_energy = 16.0
+spot_range = 36.3787
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -33.716, 33.5752, 0)
+light_energy = 16.0
+spot_range = 36.3787
