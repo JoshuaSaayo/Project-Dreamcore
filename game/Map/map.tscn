@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=14 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://clping7g0xs1h" path="res://assets/smiley/Smiley.glb" id="2_njngi"]
 [ext_resource type="PackedScene" uid="uid://cy1sd2t1xwfry" path="res://assets/duck_buoy/DuckBuoy.glb" id="3_6yc6o"]
+[ext_resource type="Script" uid="uid://2oj1x12f0bau" path="res://Map/smiley.gd" id="4_86j4t"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="5_8svjd"]
 
 [sub_resource type="Shader" id="Shader_6yc6o"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
@@ -146,12 +148,22 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_6yc6o"]
 material = SubResource("ShaderMaterial_d1580")
 
+[sub_resource type="BoxMesh" id="BoxMesh_8svjd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3g1qk"]
+
 [node name="Map" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.907848, 0.267194, -0.323141, -0.309994, 0.091236, 0.946351, 0.282341, 0.959314, 6.67183e-08, -44.6089, 48.6271, 0)
+shadow_enabled = true
 
 [node name="Terrain" type="Node3D" parent="."]
 
 [node name="DreamPool" parent="Terrain" instance=ExtResource("1_ro55w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.166332, 1.89322, 0.8774)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Terrain/DreamPool"]
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -164,3 +176,17 @@ transform = Transform3D(1.25503, 0, 1.42265, 0, 1.89711, 0, -1.42265, 0, 1.25503
 [node name="water" type="MeshInstance3D" parent="."]
 transform = Transform3D(132.715, 0, 0, 0, 3.00433, 0, 0, 0, 16.9876, 0.751309, 1.81636, 0.657615)
 mesh = SubResource("BoxMesh_6yc6o")
+
+[node name="Smiley" type="RigidBody3D" parent="."]
+script = ExtResource("4_86j4t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Smiley"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.52089, 0)
+mesh = SubResource("BoxMesh_8svjd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Smiley"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5275, 0)
+shape = SubResource("BoxShape3D_3g1qk")
+
+[node name="ProtoController" parent="." instance=ExtResource("5_8svjd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.1592, 2.33185, 1.14739)
