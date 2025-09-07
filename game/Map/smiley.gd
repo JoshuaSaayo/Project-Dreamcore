@@ -1,13 +1,12 @@
 extends RigidBody3D
 
-@export var float_force = 1.0
+@export var buoyancy: float = 9.8
+@export var flow_force: Vector3 = Vector3(0, 0, -1)
 
-@onready var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-
-const water_height = 0.0
-
-func _physics_process(delta: float) -> void:
-	var depth = water_height - global_position.y
-	if depth > 0:
-		apply_central_force(Vector3.UP * float_force * gravity * depth)
-		
+func _physics_process(delta):
+	# Buoyancy force (keep object near surface, y = 0)
+	if global_transform.origin.y < 0.0:
+		apply_central_force(Vector3(0, buoyancy, 0))
+	
+	# Flow force (pushes object along Z axis)
+	apply_central_force(flow_force)

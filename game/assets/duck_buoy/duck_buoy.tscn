@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://47c8spp0wkij"]
+
+[ext_resource type="Script" uid="uid://bdcb1v3p1erfa" path="res://assets/duck_buoy/duck_buoy.gd" id="1_512pm"]
+[ext_resource type="PackedScene" uid="uid://cy1sd2t1xwfry" path="res://assets/duck_buoy/DuckBuoy.glb" id="1_fel4g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_512pm"]
+size = Vector3(1.64551, 1, 2.19153)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_512pm"]
+radius = 1.91162
+
+[node name="DuckBuoy" type="RigidBody3D"]
+script = ExtResource("1_512pm")
+buoyancy_force = 100.0
+
+[node name="DuckBuoy" parent="." instance=ExtResource("1_fel4g")]
+transform = Transform3D(1.49121, 0, 0, 0, 1.49121, 0, 0, 0, 1.49121, -0.152817, 0, -0.104787)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0532422, 1.75793, 2.27447)
+shape = SubResource("BoxShape3D_512pm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0702929, 0.361926, -0.152264)
+shape = SubResource("CylinderShape3D_512pm")

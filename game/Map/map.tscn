@@ -1,12 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=19 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
-[ext_resource type="PackedScene" uid="uid://clping7g0xs1h" path="res://assets/smiley/Smiley.glb" id="2_njngi"]
-[ext_resource type="PackedScene" uid="uid://cy1sd2t1xwfry" path="res://assets/duck_buoy/DuckBuoy.glb" id="3_6yc6o"]
 [ext_resource type="PackedScene" uid="uid://hop4wc0ql5av" path="res://Map/Doors.glb" id="3_d1580"]
-[ext_resource type="Script" uid="uid://2oj1x12f0bau" path="res://Map/smiley.gd" id="4_86j4t"]
+[ext_resource type="Script" uid="uid://drlfpy4oys8x7" path="res://Map/water_current_area.gd" id="4_d1580"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="5_8svjd"]
+[ext_resource type="PackedScene" uid="uid://47c8spp0wkij" path="res://assets/duck_buoy/duck_buoy.tscn" id="6_3g1qk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d1580"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -166,17 +165,21 @@ shader_parameter/uv2_offset = Vector3(0, 0, 0)
 [sub_resource type="BoxMesh" id="BoxMesh_6yc6o"]
 material = SubResource("ShaderMaterial_d1580")
 
-[sub_resource type="BoxMesh" id="BoxMesh_8svjd"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3g1qk"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ej7w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1580"]
-size = Vector3(134.003, 3.97681, 16.2129)
+size = Vector3(134.003, 4.14087, 16.2129)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3g1qk"]
+size = Vector3(19.4018, 3.81592, 10.2058)
 
 [node name="Map" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lymsy")
+
+[node name="ProtoController" parent="." instance=ExtResource("5_8svjd")]
+transform = Transform3D(-0.0116935, 0, 0.999932, 0, 1, 0, -0.999932, 0, -0.0116935, 58.1592, 2.72121, 1.14739)
 
 [node name="Terrain" type="Node3D" parent="."]
 
@@ -194,27 +197,30 @@ transform = Transform3D(132.715, 0, 0, 0, 13.8818, 0, 0, 0, 16.9876, 0.751309, -
 mesh = SubResource("BoxMesh_6yc6o")
 skeleton = NodePath("../..")
 
+[node name="WaterCurrentArea" type="Area3D" parent="Terrain/water"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+script = ExtResource("4_d1580")
+flow_strength = 3.0
+oscillation_speed = 0.6
+wobble_amount = 3.0
+bob_speed = 0.8
+buoyancy_strength = 7.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terrain/water/WaterCurrentArea"]
+transform = Transform3D(1.00114, 0, 0, 0, 1.00114, 0, 0, 0, 1.00114, 0, 0, 0)
+shape = SubResource("BoxShape3D_5ej7w")
+debug_color = Color(0.517647, 0, 0.333333, 1)
+
+[node name="WaterLevel" type="Marker3D" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.562, 3.36607, 0)
+gizmo_extents = 2.0
+
 [node name="Props" type="Node3D" parent="."]
 
-[node name="Smiley" parent="Props" instance=ExtResource("2_njngi")]
-transform = Transform3D(0.811858, 0, 0, 0, 0.811858, 0, 0, 0, 0.811858, -7.96379, 2.03297, -1.28029)
-
-[node name="DuckBuoy" parent="Props" instance=ExtResource("3_6yc6o")]
-transform = Transform3D(1.25503, 0, 1.42265, 0, 1.89711, 0, -1.42265, 0, 1.25503, -19.8151, 3.74752, 3.91033)
-
-[node name="Smiley" type="RigidBody3D" parent="."]
-script = ExtResource("4_86j4t")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Smiley"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.52089, 0)
-mesh = SubResource("BoxMesh_8svjd")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Smiley"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5275, 0)
-shape = SubResource("BoxShape3D_3g1qk")
-
-[node name="ProtoController" parent="." instance=ExtResource("5_8svjd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 58.1592, 2.72121, 1.14739)
+[node name="DuckBuoy" parent="Props" instance=ExtResource("6_3g1qk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8684, 2.99211, -2.86696)
+buoyancy_force = 15.0
+water_drag = 1.0
 
 [node name="Collision" type="Node3D" parent="."]
 
@@ -225,12 +231,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67281, 1.63503, 0.916475)
 shape = SubResource("BoxShape3D_d1580")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Collision/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.82884, 7.1737, 10.7648)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.82884, 7.1737, 10.6828)
 shape = SubResource("BoxShape3D_d1580")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="Collision/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.82884, 7.1737, -8.76804)
 shape = SubResource("BoxShape3D_d1580")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 57.3043, 8.39746, 7.44644)
+shape = SubResource("BoxShape3D_3g1qk")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 57.3043, 8.39746, -5.43655)
+shape = SubResource("BoxShape3D_3g1qk")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -57.3849, 8.39746, 7.44644)
+shape = SubResource("BoxShape3D_3g1qk")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="Collision/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -57.3849, 8.39746, -5.43655)
+shape = SubResource("BoxShape3D_3g1qk")
 
 [node name="Lights" type="Node3D" parent="."]
 
