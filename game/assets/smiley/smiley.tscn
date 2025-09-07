@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4h1hd5kk4b02"]
+
+[ext_resource type="Script" uid="uid://dvtsn5hvyc6ls" path="res://assets/smiley/smiley.gd" id="1_pbifu"]
+[ext_resource type="PackedScene" uid="uid://clping7g0xs1h" path="res://assets/smiley/Smiley.glb" id="1_sv2hm"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pbifu"]
+radius = 1.98266
+height = 4.59571
+
+[node name="smiley" type="RigidBody3D"]
+linear_damp = 1.0
+script = ExtResource("1_pbifu")
+
+[node name="Smiley" parent="." instance=ExtResource("1_sv2hm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0995189, 0, 0.607707)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0648743, 2.72473, 0.612283)
+shape = SubResource("CapsuleShape3D_pbifu")

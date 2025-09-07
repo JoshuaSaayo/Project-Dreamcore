@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
 [ext_resource type="PackedScene" uid="uid://hop4wc0ql5av" path="res://Map/Doors.glb" id="3_d1580"]
 [ext_resource type="Script" uid="uid://drlfpy4oys8x7" path="res://Map/water_current_area.gd" id="4_d1580"]
-[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="5_8svjd"]
 [ext_resource type="PackedScene" uid="uid://47c8spp0wkij" path="res://assets/duck_buoy/duck_buoy.tscn" id="6_3g1qk"]
+[ext_resource type="PackedScene" uid="uid://d4h1hd5kk4b02" path="res://assets/smiley/smiley.tscn" id="7_d1580"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d1580"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -178,9 +178,6 @@ size = Vector3(19.4018, 3.81592, 10.2058)
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lymsy")
 
-[node name="ProtoController" parent="." instance=ExtResource("5_8svjd")]
-transform = Transform3D(-0.0116935, 0, 0.999932, 0, 1, 0, -0.999932, 0, -0.0116935, 58.1592, 2.72121, 1.14739)
-
 [node name="Terrain" type="Node3D" parent="."]
 
 [node name="DreamPool" parent="Terrain" instance=ExtResource("1_ro55w")]
@@ -212,14 +209,20 @@ shape = SubResource("BoxShape3D_5ej7w")
 debug_color = Color(0.517647, 0, 0.333333, 1)
 
 [node name="WaterLevel" type="Marker3D" parent="Terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.562, 3.36607, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.562, 2.39108, 0)
 gizmo_extents = 2.0
 
 [node name="Props" type="Node3D" parent="."]
 
 [node name="DuckBuoy" parent="Props" instance=ExtResource("6_3g1qk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.8684, 2.99211, -2.86696)
-buoyancy_force = 15.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5155, 2.99211, -2.86696)
+buoyancy_force = 5.0
+water_drag = 1.0
+
+[node name="smiley" parent="Props" instance=ExtResource("7_d1580")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.0591, 2.21209, 3.66941)
+mass = 10.0
+buoyancy_force = 10.0
 water_drag = 1.0
 
 [node name="Collision" type="Node3D" parent="."]
