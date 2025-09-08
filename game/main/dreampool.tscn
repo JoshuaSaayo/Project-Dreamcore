@@ -1,21 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccyjwe46v58ih"]
+[gd_scene load_steps=5 format=3 uid="uid://ccyjwe46v58ih"]
 
 [ext_resource type="PackedScene" uid="uid://cc8mj42rxscx7" path="res://Map/map.tscn" id="1_a3m5k"]
 [ext_resource type="Script" uid="uid://dypodhqdq65oo" path="res://main/dreampool.gd" id="1_gmcod"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="2_ohu18"]
+[ext_resource type="Script" uid="uid://bwgg3vx20ioyy" path="res://main/coordinates.gd" id="4_3g56t"]
 
 [node name="dreampool" type="Node3D" node_paths=PackedStringArray("player", "chunk_a", "chunk_b")]
 script = ExtResource("1_gmcod")
 player = NodePath("ProtoController")
 chunk_a = NodePath("ChunkA")
 chunk_b = NodePath("ChunkB")
-chunk_length = 1.0
+chunk_length = 130.0
 
 [node name="ChunkA" parent="." instance=ExtResource("1_a3m5k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.272029, 0, 0.12476)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="ChunkB" parent="." instance=ExtResource("1_a3m5k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128.242, 0, 0.181)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -130.819)
 
 [node name="ProtoController" parent="." instance=ExtResource("2_ohu18")]
-transform = Transform3D(-0.224934, 0, 0.974374, 0, 1, 0, -0.974374, 0, -0.224934, 60.8179, 3.32506, 1.27473)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 60)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="ProtoController"]
+
+[node name="Coordinates" type="Label" parent="ProtoController/CanvasLayer" node_paths=PackedStringArray("player")]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("4_3g56t")
+player = NodePath("../..")
