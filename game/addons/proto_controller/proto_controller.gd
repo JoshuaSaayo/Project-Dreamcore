@@ -41,7 +41,9 @@ extends CharacterBody3D
 @export var input_sprint : String = "SPRINT"
 ## Name of Input Action to toggle freefly mode.
 @export var input_freefly : String = "freefly"
+@export var stop_limit: float = 5.0  # seconds allowed to stop
 
+var stop_timer: float = 0.0
 var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
@@ -107,11 +109,20 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = 0
 		velocity.y = 0
+		
+	var moving = velocity.length() > 0.1  # adjust threshold for sensitivity
 	
+	if moving:
+		stop_timer = 0.0  # reset if moving
+	else:
+		stop_timer += delta
+		if stop_timer >= stop_limit:
+			game_over()
 	# Use velocity to actually move
 	move_and_slide()
 
-
+func game_over():
+	get_tree().change_scene_to_file("res://miscs/GameOver.tscn")
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
 ## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.
