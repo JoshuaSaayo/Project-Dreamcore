@@ -10,7 +10,7 @@ script = ExtResource("1_gmcod")
 player = NodePath("ProtoController")
 chunk_a = NodePath("ChunkA")
 chunk_b = NodePath("ChunkB")
-chunk_length = 130.0
+chunk_length = 130.819
 
 [node name="ChunkA" parent="." instance=ExtResource("1_a3m5k")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

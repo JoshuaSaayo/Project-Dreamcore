@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=21 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
@@ -7,21 +7,30 @@
 [ext_resource type="PackedScene" uid="uid://47c8spp0wkij" path="res://assets/duck_buoy/duck_buoy.tscn" id="6_3g1qk"]
 [ext_resource type="PackedScene" uid="uid://d4h1hd5kk4b02" path="res://assets/smiley/smiley.tscn" id="7_d1580"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d1580"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3g1qk"]
+sky_top_color = Color(0.0352941, 0.0470588, 0.0745098, 1)
+sky_horizon_color = Color(0.180392, 0.184314, 0.321569, 1)
+sky_curve = 0.0923358
 
 [sub_resource type="Sky" id="Sky_5ej7w"]
-sky_material = SubResource("ProceduralSkyMaterial_d1580")
+sky_material = SubResource("ProceduralSkyMaterial_3g1qk")
 
 [sub_resource type="Environment" id="Environment_lymsy"]
 background_mode = 2
 background_color = Color(0.139997, 0.195845, 0.260278, 1)
 sky = SubResource("Sky_5ej7w")
+ambient_light_source = 3
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.0392157, 0.0509804, 0.0784314, 1)
+fog_density = 0.8
+fog_depth_begin = 70.0
+fog_depth_end = 110.0
 volumetric_fog_enabled = true
-volumetric_fog_albedo = Color(0.0223201, 0.0660172, 0.0628479, 1)
+volumetric_fog_albedo = Color(0.280315, 0.36041, 0.445272, 1)
+volumetric_fog_anisotropy = 0.3
 
 [sub_resource type="Shader" id="Shader_6yc6o"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
@@ -168,10 +177,18 @@ material = SubResource("ShaderMaterial_d1580")
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ej7w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1580"]
-size = Vector3(134.003, 4.14087, 16.2129)
+size = Vector3(147.235, 4.14087, 16.2129)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3g1qk"]
 size = Vector3(19.4018, 3.81592, 10.2058)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3g1qk"]
+roughness = 0.0
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_3g1qk"]
 
 [node name="Map" type="Node3D"]
 
@@ -216,11 +233,12 @@ gizmo_extents = 2.0
 
 [node name="DuckBuoy" parent="Props" instance=ExtResource("6_3g1qk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5155, 2.99211, -2.86696)
+mass = 2.0
 buoyancy_force = 5.0
 water_drag = 1.0
 
 [node name="smiley" parent="Props" instance=ExtResource("7_d1580")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.0591, 2.21209, 3.66941)
+transform = Transform3D(-0.994151, 0, -0.107999, 0, 1, 0, 0.107999, 0, -0.994151, -15.0591, 2.21209, 3.66941)
 mass = 10.0
 buoyancy_force = 10.0
 water_drag = 1.0
@@ -230,7 +248,7 @@ water_drag = 1.0
 [node name="StaticBody3D" type="StaticBody3D" parent="Collision"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Collision/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67281, 1.63503, 0.916475)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.131282, 1.63503, 0.916475)
 shape = SubResource("BoxShape3D_d1580")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Collision/StaticBody3D"]
@@ -263,12 +281,24 @@ shape = SubResource("BoxShape3D_3g1qk")
 transform = Transform3D(-0.998342, -0.057564, -2.5162e-09, 0, -4.37114e-08, 1, -0.057564, 0.998342, 4.36389e-08, -40.4253, 48.4597, 0)
 shadow_enabled = true
 
-[node name="SpotLight3D3" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 37.2313, 33.5752, 0)
-light_energy = 16.0
-spot_range = 36.3787
+[node name="Lightbulb" type="MeshInstance3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 0.686059, 0, 0, 0, 4.32424, -33.3474, 25.1066, 0)
+material_override = SubResource("StandardMaterial3D_3g1qk")
+mesh = SubResource("BoxMesh_3g1qk")
+
+[node name="Lightbulb2" type="MeshInstance3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, 0.686059, 0, 0, 0, 4.32424, 33.52, 25.1066, -0.0144005)
+material_override = SubResource("StandardMaterial3D_3g1qk")
+mesh = SubResource("BoxMesh_3g1qk")
 
 [node name="SpotLight3D4" type="SpotLight3D" parent="Lights"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -33.716, 33.5752, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -33.716, 24.8577, 0)
 light_energy = 16.0
-spot_range = 36.3787
+spot_range = 25.8389
+spot_angle = 49.1739
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 33.4758, 24.8577, 0)
+light_energy = 16.0
+spot_range = 25.8389
+spot_angle = 49.1739
