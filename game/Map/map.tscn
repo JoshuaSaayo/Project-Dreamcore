@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=24 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
@@ -176,6 +176,14 @@ material = SubResource("ShaderMaterial_d1580")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ej7w"]
 
+[sub_resource type="FogMaterial" id="FogMaterial_3g1qk"]
+albedo = Color(0.0666667, 0.0666667, 0.0666667, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1580"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ej7w"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_d1580"]
 size = Vector3(147.235, 4.14087, 16.2129)
 
@@ -228,6 +236,26 @@ debug_color = Color(0.517647, 0, 0.333333, 1)
 [node name="WaterLevel" type="Marker3D" parent="Terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.562, 2.39108, 0)
 gizmo_extents = 2.0
+
+[node name="FogVolume" type="FogVolume" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.0585, 6.76766, 0.783203)
+size = Vector3(13.1134, 14.3179, 9.87109)
+material = SubResource("FogMaterial_3g1qk")
+
+[node name="FogVolume2" type="FogVolume" parent="Terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.8169, 6.76766, 0.783203)
+size = Vector3(7.11615, 14.3179, 9.87109)
+material = SubResource("FogMaterial_3g1qk")
+
+[node name="BlockView" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(1.50674, 0, 0, 0, 16.0865, 0, 0, 0, 11.1291, -63.3274, 7.36946, 0.60875)
+material_override = SubResource("StandardMaterial3D_d1580")
+mesh = SubResource("BoxMesh_5ej7w")
+
+[node name="BlockView2" type="MeshInstance3D" parent="Terrain"]
+transform = Transform3D(1.52764, 0, 0, 0, 16.0865, 0, 0, 0, 11.1291, 67.6863, 7.36946, 0.60875)
+material_override = SubResource("StandardMaterial3D_d1580")
+mesh = SubResource("BoxMesh_5ej7w")
 
 [node name="Props" type="Node3D" parent="."]
 

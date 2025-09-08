@@ -19,7 +19,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -130.819)
 
 [node name="ProtoController" parent="." instance=ExtResource("2_ohu18")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 60)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 51.4539)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="ProtoController"]
 
