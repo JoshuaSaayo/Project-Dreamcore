@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="project-dreamcore"
-run/main_scene="uid://cc8mj42rxscx7"
+run/main_scene="uid://ccyjwe46v58ih"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
