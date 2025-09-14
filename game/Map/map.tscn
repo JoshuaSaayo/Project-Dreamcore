@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cc8mj42rxscx7"]
+[gd_scene load_steps=25 format=3 uid="uid://cc8mj42rxscx7"]
 
 [ext_resource type="PackedScene" uid="uid://dlrbtqsht36mp" path="res://Map/DreamPool.glb" id="1_ro55w"]
 [ext_resource type="PackedScene" uid="uid://cn0oy2nyrcqgr" path="res://Map/DreamPoolFloor.glb" id="2_3g1qk"]
 [ext_resource type="PackedScene" uid="uid://hop4wc0ql5av" path="res://Map/Doors.glb" id="3_d1580"]
 [ext_resource type="Script" uid="uid://drlfpy4oys8x7" path="res://Map/water_current_area.gd" id="4_d1580"]
 [ext_resource type="PackedScene" uid="uid://47c8spp0wkij" path="res://assets/duck_buoy/duck_buoy.tscn" id="6_3g1qk"]
+[ext_resource type="AudioStream" uid="uid://dkuxl44koyorn" path="res://assets/sounds/pool_ambience.mp3" id="7_5ej7w"]
 [ext_resource type="PackedScene" uid="uid://d4h1hd5kk4b02" path="res://assets/smiley/smiley.tscn" id="7_d1580"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3g1qk"]
@@ -330,3 +331,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 33.475
 light_energy = 16.0
 spot_range = 25.8389
 spot_angle = 49.1739
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_5ej7w")
+autoplay = true
