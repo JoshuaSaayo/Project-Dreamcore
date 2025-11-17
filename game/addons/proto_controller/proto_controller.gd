@@ -38,12 +38,12 @@ extends CharacterBody3D
 ## Name of Input Action to move Backward.
 @export var input_back : String = "DOWN"
 ## Name of Input Action to Jump.
-@export var input_sprint : String = "SPRINT"
+@export var input_jump : String = "ui_accept"
+## Name of Input Action to Sprint.
+@export var input_sprint : String = "sprint"
 ## Name of Input Action to toggle freefly mode.
 @export var input_freefly : String = "freefly"
-@export var stop_limit: float = 5.0  # seconds allowed to stop
 
-var stop_timer: float = 0.0
 var mouse_captured : bool = false
 var look_rotation : Vector2
 var move_speed : float = 0.0
@@ -90,6 +90,11 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 
+	# Apply jumping
+	if can_jump:
+		if Input.is_action_just_pressed(input_jump) and is_on_floor():
+			velocity.y = jump_velocity
+
 	# Modify speed based on sprinting
 	if can_sprint and Input.is_action_pressed(input_sprint):
 			move_speed = sprint_speed
@@ -109,20 +114,11 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = 0
 		velocity.y = 0
-		
-	var moving = velocity.length() > 0.1  # adjust threshold for sensitivity
 	
-	if moving:
-		stop_timer = 0.0  # reset if moving
-	else:
-		stop_timer += delta
-		if stop_timer >= stop_limit:
-			game_over()
 	# Use velocity to actually move
 	move_and_slide()
 
-func game_over():
-	get_tree().change_scene_to_file("res://miscs/GameOver.tscn")
+
 ## Rotate us to look around.
 ## Base of controller rotates around y (left/right). Head rotates around x (up/down).
 ## Modifies look_rotation based on rot_input, then resets basis and rotates by look_rotation.
@@ -171,6 +167,9 @@ func check_input_mappings():
 	if can_move and not InputMap.has_action(input_back):
 		push_error("Movement disabled. No InputAction found for input_back: " + input_back)
 		can_move = false
+	if can_jump and not InputMap.has_action(input_jump):
+		push_error("Jumping disabled. No InputAction found for input_jump: " + input_jump)
+		can_jump = false
 	if can_sprint and not InputMap.has_action(input_sprint):
 		push_error("Sprinting disabled. No InputAction found for input_sprint: " + input_sprint)
 		can_sprint = false
